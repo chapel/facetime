@@ -1,4 +1,6 @@
 var hapi = require('hapi');
+var five = require('johnny-five');
+var Control = require('./control');
 
 var host = 'localhost';
 var port = 9999;
@@ -15,5 +17,10 @@ server.route({
 });
 
 server.start(function () {
-  console.log('starting', host, 'at', port);
+  var board = new five.Board();
+
+  board.on('ready', function () {
+    var control = new Control(board);
+    // send commands here
+  });
 });
